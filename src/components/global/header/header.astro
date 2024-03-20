@@ -1,0 +1,36 @@
+<style>
+  header {
+    position: sticky;
+  }
+  header a {
+    text-decoration: none;
+  }
+  header a:hover, header a:focus {
+    text-decoration: underline;
+  }
+  header>div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  header nav>ul {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    list-style-type: none;
+  }
+</style>
+<header>
+  <div class="container">
+    <div>
+      <a href="/">Tim Charlesworth</a>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>

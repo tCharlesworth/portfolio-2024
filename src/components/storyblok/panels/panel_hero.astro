@@ -1,0 +1,41 @@
+---
+import { renderRichText } from '@storyblok/astro'
+import Panel from "../../internal/panel.astro"
+import { isAssetDefined } from "../../../utils/storyblok"
+const { blok } = Astro.props
+
+const text = renderRichText(blok.text)
+const textStyle = blok.text_color ? 'text-'+blok.text_color : ''
+---
+
+<style>
+  :global(.panel_hero) {
+    min-height: 150px;
+    overflow: hidden;
+    position: relative;
+  }
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 1;
+  }
+  .content-wrapper {
+    position: relative;
+    z-index: 2;
+    padding: 90px 0px;
+  }
+</style>
+<Panel blok={blok} class="panel_hero">
+  {text ? (
+    <div class:list={["container content-wrapper richtext", textStyle]} set:html={text}>
+    </div>
+  ) : null}
+  {isAssetDefined(blok.background_image) ? (
+    <img src={blok.background_image.filename} />
+  ) : null}
+</Panel>

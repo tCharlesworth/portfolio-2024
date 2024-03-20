@@ -1,0 +1,10 @@
+---
+import { storyblokEditable } from "@storyblok/astro"
+const { class: className, blok } = Astro.props
+
+const classes = ["panel", className]
+---
+
+<section class:list={classes} {...storyblokEditable(blok)}>
+  <slot />
+</section>
