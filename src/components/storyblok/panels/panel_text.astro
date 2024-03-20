@@ -1,0 +1,22 @@
+---
+import { renderRichText } from '@storyblok/astro'
+import Panel from "../../internal/panel.astro"
+const { blok } = Astro.props
+const text = renderRichText(blok.text)
+
+const classes = ["container richtext"]
+if(blok.text_align) {
+  classes.push("text-align-"+blok.text_align)
+}
+if(blok.text_color) {
+  classes.push("text-"+blok.text_color)
+}
+---
+
+<style></style>
+<Panel blok={blok} class="panel_text">
+  {text ? (
+    <div class:list={classes} set:html={text}>
+    </div>
+  ) : null}
+</Panel>

@@ -2,9 +2,19 @@
 import { storyblokEditable } from "@storyblok/astro"
 const { class: className, blok } = Astro.props
 
+const blokId = blok.anchor || null;
 const classes = ["panel", className]
+if(blok.panel_padding_top) {
+  classes.push("padding-top-"+blok.panel_padding_top)
+}
+if(blok.panel_padding_bottom) {
+  classes.push("padding-bottom-"+blok.panel_padding_bottom)
+}
+if(blok.panel_background_color) {
+  classes.push("background-"+blok.panel_background_color)
+}
 ---
 
-<section class:list={classes} {...storyblokEditable(blok)}>
+<section id={blokId} class:list={classes} {...storyblokEditable(blok)}>
   <slot />
 </section>
