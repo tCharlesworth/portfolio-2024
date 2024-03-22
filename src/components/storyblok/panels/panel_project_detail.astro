@@ -1,0 +1,74 @@
+---
+import { renderRichText } from '@storyblok/astro'
+import Panel from "../../internal/panel.astro"
+import RenderSvg from "../../svg/aRenderSvg.astro"
+
+const { blok } = Astro.props
+
+const text = renderRichText(blok.text)
+
+const wrapperClasses = ["container", "project-detail-panel"]
+if(blok.icon) {
+  wrapperClasses.push('with-icon')
+}
+---
+
+<style is:global>
+  .project-detail-panel.with-icon {
+    display: grid;
+    grid-template-areas: "icon title" "content content";
+    grid-template-columns: 75px auto;
+    grid-row-gap: 10px;
+    row-gap: 10px;
+  }
+  .project-detail-panel .icon {
+    grid-area: icon;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .project-detail-panel .icon svg {
+    width: 50px;
+    height: 50px;
+  }
+  .project-detail-panel .title {
+    grid-area: title;
+  }
+  .project-detail-panel .content {
+    grid-area: content;
+  }
+  @media screen and (min-width:768px) {
+    .project-detail-panel.with-icon {
+      grid-template-areas: "icon title" "icon content";
+      row-gap: 0;
+      grid-template-columns: 125px auto;
+    }
+    .project-detail-panel .heading {
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+      align-items: center;
+    }
+    .project-detail-panel .heading h4 {
+      font-style: italic;
+    }
+    .project-detail-panel .timeline {
+      margin-top: 0;
+    }
+  }
+</style>
+<Panel blok={blok} class:list={wrapperClasses}>
+  {blok.icon ? (
+    <div class="icon">
+      <RenderSvg id={blok.icon} />
+    </div>
+  ) : null}
+  <div class="title">
+    <h3>{blok.heading}</h3>
+    {blok.description ? (<h4>{blok.description}</h4>) : null}
+  </div>
+  <div class="content">
+    {blok.timeline ? <p class="timeline">{blok.timeline}</p> : null}
+    <div class="richtext" set:html={text}></div>
+  </div>
+</Panel>

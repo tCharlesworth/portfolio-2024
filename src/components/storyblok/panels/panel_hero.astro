@@ -8,8 +8,8 @@ const text = renderRichText(blok.text)
 const textStyle = blok.text_color ? 'text-'+blok.text_color : ''
 ---
 
-<style>
-  :global(.panel_hero) {
+<style is:global>
+  .panel_hero {
     min-height: 150px;
     overflow: hidden;
     position: relative;

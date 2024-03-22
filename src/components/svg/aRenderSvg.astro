@@ -1,0 +1,21 @@
+---
+import Envelope from './envelope.astro'
+import Globe from './globe.astro'
+import HorizontalLines from './horizontalLines.astro'
+import Ipad from './ipad.astro'
+import Laptop from './laptop.astro'
+import MentorCap from './mentorCap.astro'
+import Monitor from './monitor.astro'
+import Server from './server.astro'
+import Webpage from './webpage.astro'
+const { id } = Astro.props
+---
+{id === 'envelope' ? <Envelope /> : null}
+{id === 'globe' ? <Globe /> : null}
+{id === 'horizontal-lines' ? <HorizontalLines /> : null}
+{id === 'ipad' ? <Ipad /> : null}
+{id === 'laptop' ? <Laptop /> : null}
+{id === 'mentor-cap' ? <MentorCap /> : null}
+{id === 'monitor' ? <Monitor /> : null}
+{id === 'server' ? <Server /> : null}
+{id === 'webpage' ? <Webpage /> : null}

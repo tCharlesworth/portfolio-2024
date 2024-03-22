@@ -17,7 +17,8 @@ export default defineConfig({
         page: "components/storyblok/pageTypes/page",
         panel_hero: "components/storyblok/panels/panel_hero",
         panel_text: "components/storyblok/panels/panel_text",
-        panel_section: "components/storyblok/panels/panel_section"
+        panel_section: "components/storyblok/panels/panel_section",
+        panel_project_detail: "components/storyblok/panels/panel_project_detail"
       },
       enableFallbackComponent: true,
       customFallbackComponent: "components/storyblok/fallback"
