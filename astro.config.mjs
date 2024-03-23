@@ -15,10 +15,11 @@ export default defineConfig({
       },
       components: {
         page: "components/storyblok/pageTypes/page",
+        panel_columns: "components/storyblok/panels/panel_columns",
         panel_hero: "components/storyblok/panels/panel_hero",
-        panel_text: "components/storyblok/panels/panel_text",
+        panel_project_detail: "components/storyblok/panels/panel_project_detail",
         panel_section: "components/storyblok/panels/panel_section",
-        panel_project_detail: "components/storyblok/panels/panel_project_detail"
+        panel_text: "components/storyblok/panels/panel_text",
       },
       enableFallbackComponent: true,
       customFallbackComponent: "components/storyblok/fallback"

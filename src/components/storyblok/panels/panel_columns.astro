@@ -1,0 +1,35 @@
+---
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro"
+import Panel from "../../internal/panel.astro"
+const { blok } = Astro.props
+
+function ColumnCountToSpan(cols) {
+  return 12 / cols
+}
+
+const colClasses = [""]
+if(blok.columns_mobile) {
+  colClasses.push(`col-${ColumnCountToSpan(blok.columns_mobile)}`)
+} else {
+  colClasses.push("col-4")
+}
+if(blok.columns_tablet) {
+  colClasses.push(`col-md-${ColumnCountToSpan(blok.columns_tablet)}`)
+}
+if(blok.columns_desktop) {
+  colClasses.push(`col-lg-${ColumnCountToSpan(blok.columns_desktop)}`)
+}
+---
+
+<Panel blok={blok} class="panel-columns container">
+  {blok.heading ? <h2>{blok.heading}</h2> : null}
+  <div class="grid">
+    {blok.columns.map((colBlok)=>{
+      return (
+        <div class:list={colClasses}>
+          <StoryblokComponent blok={colBlok} />
+        </div>
+      )
+    })}
+  </div>
+</Panel>
