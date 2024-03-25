@@ -1,6 +1,6 @@
 ---
 import { storyblokEditable } from "@storyblok/astro"
-const { class: className, blok } = Astro.props
+const { class: className, blok, container } = Astro.props
 
 const blokId = blok.anchor || null;
 const classes = ["panel", className]
@@ -16,5 +16,9 @@ if(blok.panel_background_color) {
 ---
 
 <section id={blokId} class:list={classes} {...storyblokEditable(blok)}>
-  <slot />
+  {container ? (
+    <div class="container">
+      <slot />
+    </div>
+  ) : <slot />}
 </section>
