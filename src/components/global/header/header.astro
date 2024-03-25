@@ -1,3 +1,6 @@
+---
+import RenderIcon from "../../svg/aRenderSvg.astro"
+---
 <style is:global>
   header {
     position: sticky;
@@ -16,24 +19,35 @@
     flex-direction: row;
     justify-content: space-between;
   }
-  header nav>ul {
+  header nav {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+  header .navigation {
     display: flex;
     flex-direction: row;
     gap: 12px;
     list-style-type: none;
+    justify-content: flex-end;
   }
   header .logo {
     font-size: 40px;
   }
-  header .logo a:visited {
+  header .logo a {
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+  header a:visited {
     color: unset;
   }
-  header .ul {
+  header .navigation {
     margin-top: 0px;
     margin-bottom: 0px;
     height: 100%;
   }
-  header ul>li {
+  header .navigation>li {
     height: 100%;
   }
   header .navlink {
@@ -43,9 +57,52 @@
     height: 100%;
     min-height: 40px;
   }
+  header .mobile-trigger {
+    display: none;
+    height: 100%;
+    border: none;
+    background: none;
+  }
+  header .mobile-trigger:hover {
+    cursor: pointer;
+  }
   @media screen and (max-width: 768px) {
     header .logo {
       font-size: 20px;
+    }
+    header .mobile-trigger {
+      display: block;
+    }
+    header .navigation {
+      position: fixed;
+      background-color: #fff;
+      z-index: 102;
+      top: 0;
+      right: -100%;
+      bottom: 0;
+      width: 80vw;
+      max-width: 250px;
+    }
+    header .backdrop {
+      position: fixed;
+      z-index: 101;
+      top: 0;
+      left: 100%;
+      bottom: 0;
+      width: 100vw;
+      background-color: #00000065;
+    }
+    nav.visible .backdrop {
+      left: 0;
+    }
+    nav.visible .navigation {
+      right: 0;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding-top: 40px;
+    }
+    nav.visible .navigation li {
+      height: 42px;
     }
   }
 </style>
@@ -54,12 +111,34 @@
     <div class="logo">
       <a href="/" class="navlink"><span>Tim Charlesworth</span></a>
     </div>
-    <nav>
-      <ul class="ul">
+    <nav id="nav">
+      <button id="mobilenavtrigger" class="mobile-trigger">
+        <RenderIcon id="horizontal-lines" />
+      </button>
+      <ul class="navigation">
         <li><a href="#experience" class="navlink"><span>Experience</span></a></li>
         <li><a href="#projects" class="navlink"><span>Projects</span></a></li>
         <li><a href="#skills" class="navlink"><span>Skills</span></a></li>
       </ul>
+      <div id="backdrop" class="backdrop" />
     </nav>
   </div>
 </header>
+<script is:inline>
+  const nav = document.getElementById("nav");
+  function toggleHeaderVisible() {
+    nav.classList.toggle("visible");
+  }
+  const mobileNavTrigger = document.getElementById("mobilenavtrigger");
+  if(mobileNavTrigger) {
+    mobileNavTrigger.addEventListener("click", toggleHeaderVisible);
+  }
+  const backdropTrigger = document.getElementById("backdrop");
+  if(backdropTrigger) {
+    backdropTrigger.addEventListener("click", toggleHeaderVisible);
+  }
+  const linkTriggers = nav.querySelectorAll("a")
+  linkTriggers.forEach((link)=>{
+    link.addEventListener("click", toggleHeaderVisible);
+  })
+</script>
