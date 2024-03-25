@@ -1,6 +1,9 @@
-<style>
+<style is:global>
   header {
     position: sticky;
+    top: 0px;
+    background-color: #fff;
+    z-index: 100;
   }
   header a {
     text-decoration: none;
@@ -19,17 +22,43 @@
     gap: 12px;
     list-style-type: none;
   }
+  header .logo {
+    font-size: 40px;
+  }
+  header .logo a:visited {
+    color: unset;
+  }
+  header .ul {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    height: 100%;
+  }
+  header ul>li {
+    height: 100%;
+  }
+  header .navlink {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    min-height: 40px;
+  }
+  @media screen and (max-width: 768px) {
+    header .logo {
+      font-size: 20px;
+    }
+  }
 </style>
 <header>
   <div class="container">
-    <div>
-      <a href="/">Tim Charlesworth</a>
+    <div class="logo">
+      <a href="/" class="navlink"><span>Tim Charlesworth</span></a>
     </div>
     <nav>
-      <ul>
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#skills">Skills</a></li>
+      <ul class="ul">
+        <li><a href="#experience" class="navlink"><span>Experience</span></a></li>
+        <li><a href="#projects" class="navlink"><span>Projects</span></a></li>
+        <li><a href="#skills" class="navlink"><span>Skills</span></a></li>
       </ul>
     </nav>
   </div>
