@@ -1,5 +1,17 @@
 ---
 import RenderIcon from "../../svg/aRenderSvg.astro"
+import Link from "../../storyblok/link.astro"
+import { useStoryblokApi } from "@storyblok/astro"
+
+const storyblokApi = useStoryblokApi()
+let blok = undefined;
+const { data } = await storyblokApi.get("cdn/stories", {
+  version: "draft",
+  content_type: "navbar"
+})
+if(data && data.stories) {
+  blok = data.stories[0].content;
+}
 ---
 <style is:global>
   header {
@@ -116,9 +128,18 @@ import RenderIcon from "../../svg/aRenderSvg.astro"
         <RenderIcon id="horizontal-lines" />
       </button>
       <ul class="navigation">
-        <li><a href="#experience" class="navlink"><span>Experience</span></a></li>
-        <li><a href="#projects" class="navlink"><span>Projects</span></a></li>
-        <li><a href="#skills" class="navlink"><span>Skills</span></a></li>
+        {blok && blok.links ? blok.links.map((link)=>{
+          return (
+            <li>
+              <Link src={link.link} class="navlink">
+                <span>
+                  {link.label ? <span>{link.label}</span> : null}
+                  {link.icon ? <RenderIcon id={link.icon} /> : null}
+                </span>
+              </Link>
+            </li>
+          )
+        }) : null}
       </ul>
       <div id="backdrop" class="backdrop" />
     </nav>

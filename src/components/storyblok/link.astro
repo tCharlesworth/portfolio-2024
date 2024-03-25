@@ -1,0 +1,21 @@
+---
+const { src, class: className } = Astro.props;
+let href = ""
+if(src) {
+  switch(src.linktype) {
+    case "url":
+      href = src.url
+      break;
+    case "email":
+      href = `mailto:${src.email}`
+      break;
+    default:
+      console.log('linktype: ', src.linktype)
+      console.log('src', src)
+  }
+}
+---
+
+<a href={href} class={className} target={src.target || '_self' }>
+  <slot />
+</a>
