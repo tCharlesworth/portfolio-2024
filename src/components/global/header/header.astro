@@ -2,11 +2,12 @@
 import RenderIcon from "../../svg/aRenderSvg.astro"
 import Link from "../../storyblok/link.astro"
 import { useStoryblokApi } from "@storyblok/astro"
+const VERSION = import.meta.env.STORYBLOK_VERSION
 
 const storyblokApi = useStoryblokApi()
 let blok = undefined;
 const { data } = await storyblokApi.get("cdn/stories", {
-  version: "draft",
+  version: VERSION,
   content_type: "navbar"
 })
 if(data && data.stories) {
