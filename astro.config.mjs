@@ -20,6 +20,7 @@ export default defineConfig({
         panel_project_detail: "components/storyblok/panels/panel_project_detail",
         panel_section: "components/storyblok/panels/panel_section",
         panel_text: "components/storyblok/panels/panel_text",
+        widget_button: "components/storyblok/widgets/widget_button",
       },
       enableFallbackComponent: true,
       customFallbackComponent: "components/storyblok/fallback"

@@ -5,7 +5,14 @@ import { isAssetDefined } from "../../../utils/storyblok"
 const { blok } = Astro.props
 
 const text = renderRichText(blok.text)
-const textStyle = blok.text_color ? 'text-'+blok.text_color : ''
+const wrapperClasses = ["panel_hero"]
+const textClasses = ["container content-wrapper richtext"]
+if(blok.style) {
+  wrapperClasses.push(blok.style)
+}
+if(blok.text_color) {
+  textClasses.push("text-"+blok.text_color)
+}
 ---
 
 <style is:global>
@@ -14,29 +21,56 @@ const textStyle = blok.text_color ? 'text-'+blok.text_color : ''
     overflow: hidden;
     position: relative;
   }
-  img {
+  .panel_hero img, .panel_hero .backdrop {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+  }
+  .panel_hero img {
     object-fit: cover;
     object-position: center;
     z-index: 1;
   }
-  .content-wrapper {
+  .panel_hero .backdrop {
+    display: none;
+  }
+  .panel_hero .content-wrapper {
     position: relative;
-    z-index: 2;
+    z-index: 3;
     padding-top: 90px;
     padding-bottom: 90px;
   }
+  /* Backdrop */
+  .panel_hero.backdrop {
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+  }
+  .panel_hero.backdrop h1 {
+    font-size: 46px;
+  }
+  .panel_hero.backdrop .content-wrapper {
+    width: 100%;
+  }
+  .panel_hero.backdrop .backdrop {
+    display: block;
+    z-index: 2;
+    background: linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0));
+  }
 </style>
-<Panel blok={blok} class="panel_hero">
+<Panel blok={blok} class:list={wrapperClasses}>
   {text ? (
-    <div class:list={["container content-wrapper richtext", textStyle]} set:html={text}>
+    <div class:list={textClasses} set:html={text}>
     </div>
   ) : null}
   {isAssetDefined(blok.background_image) ? (
-    <img src={blok.background_image.filename} />
+    <>
+      <img src={blok.background_image.filename} />
+      <div class="backdrop" />
+    </>
   ) : null}
 </Panel>

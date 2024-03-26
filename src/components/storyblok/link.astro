@@ -16,6 +16,6 @@ if(src) {
 }
 ---
 
-<a href={href} class={className} target={src.target || '_self' }>
+<a href={href} class={className} target={src && src.target ? src.target : '_self' }>
   <slot />
 </a>

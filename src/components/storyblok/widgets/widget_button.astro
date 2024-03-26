@@ -1,0 +1,22 @@
+---
+import Link from "../link.astro"
+import RenderSvg from "../../svg/aRenderSvg.astro"
+const { blok } = Astro.props
+
+const classList = ["btn"]
+
+if(blok.background_color) {
+  classList.push("background-"+blok.background_color)
+}
+if(blok.text_color) {
+  classList.push("text-"+blok.text_color)
+}
+if(blok.full_width) {
+  classList.push("fluid")
+}
+
+---
+<Link src={blok.link} class:list={classList}>
+  {blok.icon ? <RenderSvg id={blok.icon} /> : null}
+  {blok.label}
+</Link>

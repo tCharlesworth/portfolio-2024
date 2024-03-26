@@ -134,7 +134,7 @@ if(data && data.stories) {
         {blok && blok.links ? blok.links.map((link)=>{
           let linkClasses = ["navlink"];
           if(link.background_color) {
-            linkClasses.push("background-"+link.background_color);
+            linkClasses.push("btn icon-btn background-"+link.background_color);
           }
           if(link.foreground_color) {
             linkClasses.push("text-"+link.foreground_color)

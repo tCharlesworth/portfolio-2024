@@ -8,7 +8,7 @@
     Orange: ff6700  
   */
   * { box-sizing: border-box; }
-  body { margin: 0px; color: #211a1d; background-color: #f5f5f5; font-family: sans-serif; }
+  body { margin: 0px; color: #211a1d; background-color: #f5f5f5; font-family: "Roboto", sans-serif; }
   h1 {
     font-size: 32px;
     line-height: 36px;
@@ -31,7 +31,7 @@
   }
   p {
     font-size: 16px;
-    line-height: 20px;
+    line-height: 24px;
     margin: 8px 0px;
   }
 
@@ -68,15 +68,15 @@
   }
   /* Text Colors */
   .text-white { color: #fff; }
-  .text-white svg.stroke path { stroke: #fff; }
+  .text-white svg.stroke path, .text-white svg.stroke rect { stroke: #fff; }
   .text-black { color: #211a1d; }
-  .text-black svg.stroke path { stroke: #211a1d; }
+  .text-black svg.stroke path, .text-black svg.stroke rect { stroke: #211a1d; }
   .text-gray { color: #a2a3bb; }
-  .text-gray svg.stroke path { stroke: #a2a3bb; }
+  .text-gray svg.stroke path, .text-gray svg.stroke rect { stroke: #a2a3bb; }
   .text-orange { color: #ff6700; }
-  .text-orange svg.stroke path { stroke: #ff6700; }
+  .text-orange svg.stroke path, .text-orange svg.stroke rect { stroke: #ff6700; }
   .text-green { color: #08605f; }
-  .text-green svg.stroke path { stroke: #08605f; }
+  .text-green svg.stroke path, .text-green svg.stroke rect { stroke: #08605f; }
   /* Background Colors */
   .background-white { background-color: #fff; }
   .background-black { background-color: #211a1d; }
@@ -144,5 +144,23 @@
     .col-lg-10 { grid-column: span 10; }
     .col-lg-11 { grid-column: span 11; }
     .col-lg-12 { grid-column: span 12; }
+  }
+  a.btn, button.btn {
+    padding: 8px 16px;
+    text-align: center;
+  }
+  .btn {
+    text-decoration: none;
+    transition: opacity 0.2s ease-in-out;
+  }
+  .btn:hover {
+    opacity: 0.8;
+  }
+  .btn.fluid {
+    display: inline-block;
+    width: 100%;
+  }
+  .btn:not(.icon-btn) svg {
+    margin-right: 16px;
   }
 </style>

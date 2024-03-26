@@ -63,10 +63,12 @@ if(blok.icon) {
       <RenderSvg id={blok.icon} />
     </div>
   ) : null}
-  <div class="title">
-    <h3>{blok.heading}</h3>
-    {blok.description ? (<h4>{blok.description}</h4>) : null}
-  </div>
+  {blok.heading || blok.description ? (
+    <div class="title">
+      {blok.heading ? (<h3>{blok.heading}</h3>) : null}
+      {blok.description ? (<h4>{blok.description}</h4>) : null}
+    </div>
+  ) : null}
   <div class="content">
     {blok.timeline ? <p class="timeline">{blok.timeline}</p> : null}
     <div class="richtext" set:html={text}></div>
