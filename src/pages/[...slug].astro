@@ -15,18 +15,29 @@ export async function getStaticPaths() {
 
   let links = []
   if(response && response.data && response.data.stories) {
-    links = response.data.stories.map((story)=>{
-      return {
+    response.data.stories.forEach((story)=>{
+      let info = {
         params: {
-          path: story.full_slug === "home" ? undefined : story.full_slug
+          slug: story.full_slug
+        },
+        props: {
+          title: story.content.seo ? story.content.seo.title  : undefined
         }
+      }
+      links.push(info)
+      if(info.params.slug === "home") {
+        links.push({
+          ...info,
+          params: { slug: undefined }
+        })
       }
     })
   }
   return links;
 }
  
-const { path: slug } = Astro.params
+const { slug } = Astro.params
+const { title } = Astro.props
 const storyblokApi = useStoryblokApi()
 const { data } = await storyblokApi.get("cdn/stories/"+(slug || "home"), {
   version: VERSION,
@@ -35,6 +46,6 @@ const { data } = await storyblokApi.get("cdn/stories/"+(slug || "home"), {
 const story = data.story
 ---
 
-<BaseLayout>
+<BaseLayout title={title}>
   <StoryblokComponent blok={story.content} />
 </BaseLayout>
