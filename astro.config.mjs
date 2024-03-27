@@ -21,6 +21,7 @@ export default defineConfig({
         panel_section: "components/storyblok/panels/panel_section",
         panel_text: "components/storyblok/panels/panel_text",
         widget_button: "components/storyblok/widgets/widget_button",
+        widget_list: "components/storyblok/widgets/widget_list",
       },
       enableFallbackComponent: true,
       customFallbackComponent: "components/storyblok/fallback"
