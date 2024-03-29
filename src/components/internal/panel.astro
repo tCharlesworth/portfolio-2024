@@ -1,7 +1,9 @@
 ---
 import { storyblokEditable } from "@storyblok/astro"
+import { renderRichText } from "@storyblok/astro"
 const { class: className, blok, container } = Astro.props
 
+const headerText = renderRichText(blok.panel_header_text)
 const blokId = blok.anchor || null;
 const classes = ["panel", className]
 if(blok.panel_padding_top) {
@@ -13,9 +15,20 @@ if(blok.panel_padding_bottom) {
 if(blok.panel_background_color) {
   classes.push("background-"+blok.panel_background_color)
 }
+const headerClasses = ["container"]
+if(blok.panel_header_text_color) {
+  headerClasses.push("text-"+blok.panel_header_text_color)
+}
+if(blok.panel_header_padding) {
+  headerClasses.push("padding-bottom-"+blok.panel_header_padding)
+}
 ---
 
 <section id={blokId} class:list={classes} {...storyblokEditable(blok)}>
+  {headerText ? (
+    <div class:list={headerClasses} set:html={headerText}>
+    </div>
+  ) : null}
   {container ? (
     <div class="container">
       <slot />

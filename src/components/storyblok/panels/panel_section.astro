@@ -6,11 +6,6 @@ const { blok } = Astro.props
 ---
 
 <Panel blok={blok}>
-  {blok.heading ? (
-    <div class="container">
-      <h2>{blok.heading}</h2>
-    </div>
-    ) : null}
   {
     blok.panels?.map((subBlok) => {
       return <StoryblokComponent blok={subBlok} />
