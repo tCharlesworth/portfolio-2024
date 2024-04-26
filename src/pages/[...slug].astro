@@ -10,8 +10,14 @@ export async function getStaticPaths() {
 
   const response = await storyblokApi.get("cdn/stories", {
     version: VERSION2,
-    content_type: "page"
+    filter_query: {
+      component: {
+        in: "page,Experience,Project"
+      }
+    }
   })
+
+  console.log("Paths: ", response.data.stories.length)
 
   let links = []
   if(response && response.data && response.data.stories) {

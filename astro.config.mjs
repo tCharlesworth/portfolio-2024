@@ -15,6 +15,8 @@ export default defineConfig({
       },
       components: {
         page: "components/storyblok/pageTypes/page",
+        experience: "components/storyblok/pageTypes/experience",
+        project: "components/storyblok/pageTypes/project",
         panel_columns: "components/storyblok/panels/panel_columns",
         panel_hero: "components/storyblok/panels/panel_hero",
         panel_project_detail: "components/storyblok/panels/panel_project_detail",
