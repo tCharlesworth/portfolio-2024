@@ -1,0 +1,78 @@
+---
+import { isAssetDefined } from "../../../utils/storyblok"
+import Panel from "../../internal/panel.astro"
+const { blok } = Astro.props
+
+const classes = ["container image-container"]
+---
+
+<style is:global>
+  .panel_image_row .image-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 16px;
+  }
+  .panel_image_row img {
+    max-width: 100%;
+    height: auto;
+    width: 200px;
+  }
+  .panel_image_row button:hover {
+    cursor: pointer;
+  }
+  .panel_image_row dialog {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .panel_image_row dialog::backdrop {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background: rgba(255, 0, 0, 0.4);
+  }
+  .panel_image_row dialog img {
+    width: 100%;
+    height: auto;
+  }
+</style>
+<Panel blok={blok} class="panel_image_row">
+  <div id=`image-row-${blok._uid}` class:list={classes}>
+    {blok.images.map((image)=>{
+      if(isAssetDefined(image)) {
+        return (
+          <>
+            <button class="dialog-trigger">
+              <img data-target={`dialog_${image.id}`} src={image.filename} alt={image.alt} />
+            </button>
+            <dialog id={`dialog_${image.id}`}>
+              <form method="dialog">
+                <button>X</button>
+              </form>
+              <img src={image.filename} alt={image.alt} />
+            </dialog>
+          </>
+        )
+      }
+    })}
+  </div>
+  <script define:vars={{ targetId: `image-row-${blok._uid}` }}>
+  
+    const container = document.getElementById(targetId)
+    const btns = container.querySelectorAll('button.dialog-trigger')
+    btns.forEach((btn)=>{
+      btn.addEventListener('click', (e)=>{
+        const dialog = document.getElementById(e.target.dataset.target)
+        if(dialog) {
+          dialog.show()
+        } else {
+          console.error('Dialog not fount: ', e.target.dataset.target)
+        }
+      })
+    })
+  </script>
+</Panel>
