@@ -1,0 +1,44 @@
+---
+import { useStoryblokApi } from "@storyblok/astro"
+import Panel from "../../internal/panel.astro"
+import PanelProjectDetail from "./panel_project_detail.astro"
+import { ParseStoryblokDate } from "../../../utils/storyblok"
+
+const API_VERSION = import.meta.env.PROD ? "published" : "draft"
+
+const { blok } = Astro.props
+
+const api = useStoryblokApi()
+
+const { data: { stories } } = await api.getStories({
+  content_type: "Experience",
+  by_uuids: blok.experiences.join(','),
+  version: API_VERSION
+})
+const panels = stories.map((story, idx) => {
+  return {
+    _uid: story.uuid,
+    icon: story.content.icon || "globe",
+    text: story.content.description,
+    heading: story.content.display_name,
+    timeline: `${ParseStoryblokDate(story.content.start_date).getFullYear()} - ${ParseStoryblokDate(story.content.end_date).getFullYear()}`,
+    component: "panel_project_detail",
+    text_color: "black",
+    description: story.content.title,
+    heading_color: "black",
+    panel_padding_top: idx > 0 ? "small" : "",
+    panel_padding_bottom: "",
+    panel_background_color: "",
+  }
+})
+// Sort by editor defined order
+const experiences = blok.experiences.map((storyUuid)=>{
+  return panels.find((p)=>{return p._uid === storyUuid})
+})
+---
+
+<Panel blok={blok}>
+  {experiences.map((story) => {
+    return <PanelProjectDetail blok={story} />
+  })}
+</Panel>
